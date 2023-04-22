@@ -7,11 +7,19 @@ multitasking model that can perform multilingual speech recognition, speech tran
 """
 
 import whisper
+import os
+import os
+from whisper.audio import load_audio
+from whisper import transcribe
 
 model = whisper.load_model("base")
-audioPath = ("/".join(["voices", "command.wav"]))
+audioPath = os.path.abspath('C:/Users/Admin/OneDrive/Pulpit/Kodilla/Quest/voices/command.wav')
+result = model.transcribe(audioPath, fp16=False, language='English')
+
+
+
 print(audioPath)
 
-result = model.transcribe(audioPath, fp16=False, language='English')
+"""result = model.transcribe(audioPath, fp16=False, language='English')"""
 
 print(result["text"])

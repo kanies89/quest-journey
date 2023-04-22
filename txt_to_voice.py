@@ -4,6 +4,7 @@ from TTS.api import TTS
 def txt_tov(filename, text):
     OUTPUT_1 = "/".join(["voices", filename])
     OUTPUT_2 = "/".join(["voices", "coqui", filename])
+
     model_name = TTS.list_models()[0]
     # Init TTS
     tts = TTS(model_name)

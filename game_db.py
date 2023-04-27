@@ -1,5 +1,5 @@
 import mysql.connector
-import core
+
 
 class Database:
     def __init__(self, host, port, user, password, database):

@@ -1,23 +1,39 @@
 import socket
+import main
 
-# create a TCP/IP socket
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# Set up the server socket
+HOST = '127.0.0.1'  # Localhost
+PORT = 12345        # Arbitrary non-privileged port
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.bind((HOST, PORT))
+    s.listen()
 
-# bind the socket to a specific port
-server_address = ('localhost', 9999)
-server_socket.bind(server_address)
+    # Wait for incoming connections
+    print(f"Server is listening on {HOST}:{PORT}...")
 
-# listen for incoming connections
-server_socket.listen(1)
-print('Server is listening on port {}...'.format(server_address[1]))
+    while True:
+        conn, addr = s.accept()
+        print(f"Connected by {addr}")
 
-# wait for a client connection
-client_socket, client_address = server_socket.accept()
+        # Receive data and send response
+        while True:
+            data = conn.recv(1024)
+            if not data:
+                break
+            # Decode the incoming command and send response
+            command = data.decode('utf-8').strip()
 
-# when a client connects, receive a command
-command = client_socket.recv(1024)
-print('Received command: {}'.format(command.decode()))
+            # do something with the command
+            print('Command received: ' + command)
 
-# close the connection
-client_socket.close()
-server_socket.close()
+            if command == 'hello':
+                response = 'Hello, world!'
+                # Send the response back to the client
+                conn.sendall(response.encode('utf-8'))
+                continue
+
+            else:
+                response = 'Invalid command'
+                # Send the response back to the client
+                conn.sendall(response.encode('utf-8'))
+                continue

@@ -14,7 +14,9 @@ class RPGScenario(GameObject, Database):
 
     @classmethod
     def get_schema(cls) -> str:
-        return f"id INTEGER PRIMARY KEY AUTO_INCREMENT, title TEXT, prologue TEXT, player_count INTEGER, prologue_audio TEXT"
+        return f"id INTEGER PRIMARY KEY AUTO_INCREMENT, title TEXT, prologue TEXT, player_count INTEGER, " \
+               f"prologue_audio TEXT "
+
 
 class TextToVoice:
     def __init__(self, db):

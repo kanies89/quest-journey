@@ -11,6 +11,7 @@ import webrtcvad
 import whisper
 import wave
 
+
 # Constants
 PATH = 'voices/command.wav'
 FORMAT = pyaudio.paInt16
@@ -97,4 +98,11 @@ def use_whisper() -> str:
     model = whisper.load_model("base")
     result = model.transcribe(PATH, fp16=False, language='English')
     print(result["text"])
-    return result["text"]
+    # Open a text file for writing
+    with open("output.txt", "w") as file:
+        # Write string to file
+        file.write(result["text"])
+
+
+detect()
+use_whisper()
